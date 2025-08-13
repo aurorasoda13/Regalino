@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
         "<p>Sei bellissimo non dimenticarlo mai.</p>",
         "<span>Senza di te, il mio mondo non sarebbe lo stesso ormai.</span>",
         "<span>Ti amo anche quando scleri e non capisco niente di ciò che dici</span>",
-        "<p>E' bellissimo vederti felice.</p>"
+        "<p>E' bellissimo vederti felice.</p>",
+        "<span>Sta sera si fanno le sei??</span>",
     ];
 
     busta.addEventListener('click', () => {
@@ -34,4 +35,5 @@ document.addEventListener('DOMContentLoaded', () => {
         const indiceCasuale = Math.floor(Math.random() * frasi.length);
         bigliettino.innerHTML = frasi[indiceCasuale];
     }
+
 });
