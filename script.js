@@ -1,61 +1,37 @@
-const envelopeWrapper = document.querySelector('.envelope-wrapper');
-const envelope = document.querySelector('.envelope');
-const openBtn = document.getElementById('open-btn');
-const closeBtn = document.getElementById('close-btn');
+document.addEventListener('DOMContentLoaded', () => {
+    const busta = document.querySelector('.busta');
+    const chiudiBustaButton = document.getElementById('chiudi-busta');
+    const barattolo = document.getElementById('barattolo');
+    const bigliettino = document.getElementById('bigliettino');
 
-const jarWrapper = document.querySelector('.jar-wrapper');
-const jar = document.getElementById('jar');
-const randomMessageDisplay = document.getElementById('random-message');
-const ticketContainer = document.querySelector('.ticket-container');
+    const frasi = [
+        "<p>Ti amo da morire perchè mi fai sentire a casa.</p>",
+        "<span>Voglio passare la mia vita con te.</span>",
+        "<p>Tu e Orazio avete preso il mio cuore e ve lo siete diviso a metà.</p>",
+        "<span>Farei di tutto per te, anche dare la mia vita.</span>",
+        "<p>Sei bellissimo non dimenticarlo mai.</p>",
+        "<span>Senza di te, il mio mondo non sarebbe lo stesso ormai.</span>",
+        "<span>Ti amo anche quando scleri e non capisco niente di ciò che dici</span>",
+        "<p>E' bellissimo vederti felice.</p>"
+    ];
 
-// Frasi casuali da estrarre
-const phrases = [
-    "Il nostro amore è una melodia perfetta.",
-    "Sei la mia stella polare in ogni tempesta.",
-    "Ogni giorno con te è un regalo.",
-    "La felicità ha il tuo sorriso.",
-    "Il mio cuore è tuo, per sempre.",
-    "Non so dove andrò, ma sarò al tuo fianco.",
-    "Sei la parte migliore di me.",
-    "Ti amo, più di quanto le parole possano dire."
-];
+    busta.addEventListener('click', () => {
+        busta.classList.add('aperta');
+        setTimeout(() => {
+            chiudiBustaButton.classList.remove('nascosto');
+        }, 1000);
+    });
 
-// Funzione per creare i bigliettini all'interno del barattolo
-function createTickets() {
-    for (let i = 0; i < 15; i++) {
-        const ticket = document.createElement('div');
-        ticket.classList.add('ticket');
-        ticket.style.left = `${Math.random() * 80 + 10}%`;
-        ticket.style.top = `${Math.random() * 80 + 10}%`;
-        ticket.style.transform = `rotate(${Math.random() * 360}deg)`;
-        ticket.style.animationDelay = `${Math.random() * 2}s`;
-        ticketContainer.appendChild(ticket);
+    chiudiBustaButton.addEventListener('click', () => {
+        busta.classList.add('nascosto');
+        chiudiBustaButton.classList.add('nascosto');
+        barattolo.classList.remove('nascosto');
+        mostraFraseCasuale();
+        setInterval(mostraFraseCasuale, 5000);
+    });
+
+    function mostraFraseCasuale() {
+        const indiceCasuale = Math.floor(Math.random() * frasi.length);
+        bigliettino.innerHTML = frasi[indiceCasuale];
     }
-}
-
-document.addEventListener('DOMContentLoaded', createTickets);
-
-// Gestione dell'apertura e chiusura della busta
-openBtn.addEventListener('click', () => {
-    envelope.classList.add('open');
 });
-
-closeBtn.addEventListener('click', () => {
-    // Nasconde la busta e mostra il barattolo
-    envelopeWrapper.classList.add('hidden');
-    jarWrapper.classList.add('active');
-});
-
-// Gestione dell'estrazione delle frasi dal barattolo
-jar.addEventListener('click', () => {
-    const randomIndex = Math.floor(Math.random() * phrases.length);
-    const randomPhrase = phrases[randomIndex];
-
-    // Animazione per far sparire la frase e mostrarne una nuova
-    randomMessageDisplay.style.opacity = '0';
-    setTimeout(() => {
-        randomMessageDisplay.textContent = randomPhrase;
-        randomMessageDisplay.style.opacity = '1';
-    }, 500); // Ritardo per l'animazione di dissolvenza
-});
- 
